@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>営推依頼ポータル</title>
+  <style>
+    :root {
+      --ink: #202833;
+      --muted: #667085;
+      --line: #d9e0e8;
+      --paper: #ffffff;
+      --wash: #f4f7f9;
+      --blue: #2368a2;
+      --blue-dark: #16476f;
+      --teal: #167c72;
+      --green: #2f7d46;
+      --yellow: #a66a00;
+      --red: #b42318;
+      --violet: #6f4aa8;
+      --shadow: 0 14px 30px rgba(26, 39, 56, .08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Yu Gothic", "Meiryo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      background: var(--wash);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 24px;
+    }
+
+    .brand {
+      display: grid;
+      gap: 0;
+      min-width: 190px;
+    }
+
+    .brand strong {
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .navlinks {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .navlinks a {
+      color: #344054;
+      font-size: 14px;
+      padding: 8px 10px;
+      border-radius: 6px;
+    }
+
+    .navlinks a:hover {
+      background: #edf4f8;
+      color: var(--blue-dark);
+    }
+
+    .hero {
+      background:
+        linear-gradient(120deg, rgba(17, 74, 113, .95), rgba(20, 111, 101, .9)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720' viewBox='0 0 1200 720'%3E%3Crect width='1200' height='720' fill='%23e9f1f5'/%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.55' stroke-width='2'%3E%3Cpath d='M130 165h310v190H130zM510 120h220v135H510zM790 150h280v205H790zM190 430h250v120H190zM520 365h420v160H520z'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='.35'%3E%3Ccircle cx='210' cy='220' r='18'/%3E%3Ccircle cx='850' cy='235' r='18'/%3E%3Ccircle cx='610' cy='440' r='18'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 64px 24px 46px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 14px;
+      letter-spacing: 0;
+      color: rgba(255, 255, 255, .78);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 780px;
+      margin: 18px 0 0;
+      color: rgba(255, 255, 255, .9);
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(10, 31, 45, .14);
+    }
+
+    .button.primary {
+      background: #fff;
+      color: var(--blue-dark);
+    }
+
+    .button.secondary {
+      color: #fff;
+      border-color: rgba(255, 255, 255, .45);
+      background: rgba(255, 255, 255, .12);
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 24px 56px;
+    }
+
+    .notice {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      margin: 0 0 28px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--teal);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .notice p {
+      margin: 0;
+      color: #344054;
+    }
+
+    .section {
+      margin-top: 42px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 178px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .mark {
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .blue { background: var(--blue); }
+    .teal { background: var(--teal); }
+    .green { background: var(--green); }
+    .yellow { background: var(--yellow); }
+    .violet { background: var(--violet); }
+    .red { background: var(--red); }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card .button {
+      width: 100%;
+      margin-top: auto;
+      color: var(--blue-dark);
+      background: #eef6fb;
+      border-color: #cfe4f2;
+    }
+
+    .card .button.unset {
+      color: #725300;
+      background: #fff7df;
+      border-color: #f2d991;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .panel h3 {
+      margin: 0 0 14px;
+      font-size: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      color: #475467;
+      font-size: 13px;
+      background: #f8fafc;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-width: 72px;
+      justify-content: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status.waiting { color: #7a271a; background: #fee4e2; }
+    .status.checking { color: #7a4d00; background: #fef0c7; }
+    .status.published { color: #05603a; background: #d1fadf; }
+    .status.done { color: #344054; background: #eaecf0; }
+
+    .manual-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .manual-list a {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fbfcfd;
+    }
+
+    .manual-list span {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .form-spec {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .field {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+    }
+
+    .field strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .field span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer {
+      margin-top: 48px;
+      padding: 24px;
+      color: #475467;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      max-width: min(360px, calc(100vw - 36px));
+      padding: 13px 15px;
+      color: #fff;
+      background: #1f2937;
+      border-radius: 8px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+      font-size: 14px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .navlinks {
+        justify-content: flex-start;
+      }
+
+      .grid,
+      .two-col,
+      .form-spec {
+        grid-template-columns: 1fr;
+      }
+
+      .notice {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-inner {
+        padding: 46px 18px 34px;
+      }
+
+      main {
+        padding: 22px 16px 44px;
+      }
+
+      .nav {
+        padding: 12px 16px;
+      }
+
+      .navlinks a {
+        padding: 7px 8px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      table {
+        min-width: 620px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="主要ナビゲーション">
+      <a class="brand" href="#top">
+        <strong>営推依頼ポータル</strong>
+        <span>社会福祉事業本部</span>
+      </a>
+      <div class="navlinks">
+        <a href="#pr">広報・SNS</a>
+        <a href="#facility">施設管理</a>
+        <a href="#report">報告提出</a>
+        <a href="#status">提出状況</a>
+        <a href="#manual">マニュアル</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <p class="eyebrow">社会福祉事業本部</p>
+      <h1>営推依頼ポータル</h1>
+      <p class="lead">施設から営推への依頼、営推から各施設への提出依頼、進捗確認をこのポータルに集約します。</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#popular">依頼・提出メニューへ</a>
+        <a class="button secondary" href="#status">提出状況を確認</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="notice" aria-label="運用ルール">
+      <p><strong>運用ルール:</strong> 施設から営推へ依頼する場合も、営推から施設へ提出をお願いする場合も、入口はこのポータルに統一します。依頼・提出・確認の場所をそろえることで、施設負担軽減、確認工数削減、未対応の可視化につなげます。</p>
+      <a class="button secondary" style="color: var(--blue-dark); border-color: #cfe4f2; background: #eef6fb;" href="#forms">フォーム設計を見る</a>
+    </section>
+
+    <section class="section" id="popular">
+      <div class="section-head">
+        <h2>依頼・提出メニュー</h2>
+        <p>施設からの依頼と、営推から施設へお願いする提出フォームをまとめています。</p>
+      </div>
+      <div class="grid">
+        <article class="card" id="pr">
+          <h3><span class="mark blue">HP</span>HP掲載依頼</h3>
+          <p>活動報告・イベント・採用・お知らせ・地域交流など、HP掲載に関する依頼・素材提出を受け付けます。</p>
+          <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSeDjjs3Lbk2tU5gTnuZl35P9ubIn51WAI5WgHo3TBK-Cr-6kg/viewform?usp=publish-editor" target="_blank" rel="noopener">フォームを開く</a>
+        </article>
+        <article class="card">
+          <h3><span class="mark teal">SN</span>SNS素材提出</h3>
+          <p>Instagram・Googleビジネスプロフィール投稿用の写真や文章を提出・共有します。</p>
+          <a class="button unset" href="#" data-placeholder="SNS素材提出フォーム">フォームURL未設定</a>
+        </article>
+        <article class="card">
+          <h3><span class="mark violet">FL</span>チラシ制作依頼</h3>
+          <p>イベント案内、採用告知、地域向けのお知らせなどの制作相談を行います。</p>
+          <a class="button unset" href="#" data-placeholder="チラシ制作依頼フォーム">フォームURL未設定</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="facility">
+      <div class="section-head">
+        <h2>施設管理</h2>
+        <p>設備故障、修繕、備品購入相談、監査・広報写真など、施設管理に関する依頼・提出導線です。</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3><span class="mark red">修</span>修理・修繕依頼</h3>
+          <p>設備故障、破損、営繕が必要な箇所について、写真付きで依頼します。</p>
+          <a class="button unset" href="#" data-placeholder="修理・修繕依頼フォーム">フォームURL未設定</a>
+        </article>
+        <article class="card">
+          <h3><span class="mark yellow">備</span>備品購入相談</h3>
+          <p>購入前の相談、必要理由、希望納期、概算金額などをまとめて申請します。</p>
+          <a class="button unset" href="#" data-placeholder="備品購入相談フォーム">フォームURL未設定</a>
+        </article>
+        <article class="card">
+          <h3><span class="mark green">写</span>写真提出</h3>
+          <p>監査、広報、活動記録などで必要な写真データを提出します。</p>
+          <a class="button unset" href="#" data-placeholder="写真提出フォーム">フォームURL未設定</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="report">
+      <div class="section-head">
+        <h2>報告提出</h2>
+        <p>営推から各施設へお願いする定期報告や、地域連携関連の依頼・提出をまとめています。</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3><span class="mark blue">月</span>月次報告</h3>
+          <p>KPI、稼働率、施設状況など月次で必要な報告を提出します。</p>
+          <a class="button unset" href="#" data-placeholder="月次報告フォーム">フォームURL未設定</a>
+        </article>
+        <article class="card">
+          <h3><span class="mark teal">献</span>献立表提出</h3>
+          <p>Canva連携用の献立表データを提出します。</p>
+          <a class="button unset" href="#" data-placeholder="献立表提出フォーム">フォームURL未設定</a>
+        </article>
+        <article class="card">
+          <h3><span class="mark violet">YE</span>YELL関連依頼</h3>
+          <p>ボランティア関連、地域連携に関する依頼・相談を受け付けます。</p>
+          <a class="button unset" href="#" data-placeholder="YELL関連依頼フォーム">フォームURL未設定</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section two-col" id="status">
+      <div class="panel">
+        <div class="section-head" style="margin-bottom: 8px;">
+          <h2>提出状況ダッシュボード</h2>
+          <p>施設からの依頼、営推からの提出依頼、確認状況を一覧で把握するための表示イメージです。</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>受付日</th>
+                <th>施設</th>
+                <th>カテゴリ</th>
+                <th>タイトル</th>
+                <th>状態</th>
+                <th>担当</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>5/20</td>
+                <td>中野</td>
+                <td>活動報告</td>
+                <td>屋形船</td>
+                <td><span class="status checking">確認中</span></td>
+                <td>市川</td>
+              </tr>
+              <tr>
+                <td>5/21</td>
+                <td>淡路</td>
+                <td>SNS</td>
+                <td>季節イベント</td>
+                <td><span class="status waiting">未確認</span></td>
+                <td>未定</td>
+              </tr>
+              <tr>
+                <td>5/22</td>
+                <td>池尻</td>
+                <td>修繕</td>
+                <td>照明不具合</td>
+                <td><span class="status done">完了</span></td>
+                <td>営推</td>
+              </tr>
+              <tr>
+                <td>5/23</td>
+                <td>白金</td>
+                <td>HP掲載</td>
+                <td>地域交流会</td>
+                <td><span class="status published">公開済</span></td>
+                <td>市川</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <aside class="panel" id="manual">
+        <h3>マニュアル一覧</h3>
+        <ul class="manual-list">
+          <li><a href="#" data-placeholder="HP掲載依頼方法"><strong>HP掲載依頼方法</strong><span>未設定</span></a></li>
+          <li><a href="#" data-placeholder="写真撮影ルール"><strong>写真撮影ルール</strong><span>未設定</span></a></li>
+          <li><a href="#" data-placeholder="Canva提出方法"><strong>Canva提出方法</strong><span>未設定</span></a></li>
+          <li><a href="#" data-placeholder="SNS運用ルール"><strong>SNS運用ルール</strong><span>未設定</span></a></li>
+          <li><a href="#" data-placeholder="修繕依頼入力方法"><strong>修繕依頼入力方法</strong><span>未設定</span></a></li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="section" id="forms">
+      <div class="section-head">
+        <h2>HP掲載依頼フォーム設計</h2>
+        <p>Googleフォーム化する際の入力項目です。依頼受付フォーム、提出依頼フォームのどちらにも横展開できます。</p>
+      </div>
+      <div class="panel">
+        <p style="margin-top: 0;">HP掲載に必要な内容・素材の入力をお願いいたします。提出後、営推にて確認・公開対応を行います。</p>
+        <div class="form-spec">
+          <div class="field"><strong>施設名</strong><span>プルダウン: 中野、淡路、池尻、白金、せせらぎ ほか</span></div>
+          <div class="field"><strong>担当者名</strong><span>短文</span></div>
+          <div class="field"><strong>掲載カテゴリ</strong><span>ラジオボタン: 活動報告、イベント、採用、お知らせ、地域交流</span></div>
+          <div class="field"><strong>タイトル</strong><span>短文</span></div>
+          <div class="field"><strong>本文</strong><span>長文: 200から400文字推奨</span></div>
+          <div class="field"><strong>掲載希望日</strong><span>日付</span></div>
+          <div class="field"><strong>写真添付</strong><span>ファイルアップロード</span></div>
+          <div class="field"><strong>確認事項</strong><span>利用者・ご家族掲載確認済、個人情報確認済</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Drive整理案</h2>
+        <p>フォーム回答後の格納先として想定するフォルダ構成です。</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3><span class="mark blue">01</span>依頼・提出</h3>
+          <p>HP掲載、SNS、修繕、KPI、献立、写真など、双方向の依頼・提出データをトップ階層で整理します。</p>
+        </article>
+        <article class="card">
+          <h3><span class="mark teal">02</span>月別フォルダ</h3>
+          <p>HP掲載は 2026_05、2026_06 のように月別フォルダへ自動整理します。</p>
+        </article>
+        <article class="card">
+          <h3><span class="mark green">03</span>Phase2</h3>
+          <p>LINE WORKS通知、未提出リマインド、GAS自動化、Canva連携、KPI集計、Clarity分析連携を拡張候補にします。</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    営推依頼ポータル HTMLたたき台。依頼フォーム、提出フォーム、Drive、スプレッドシートのURL確定後に各ボタンへ反映します。
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const toast = document.querySelector(".toast");
+    let toastTimer;
+
+    document.querySelectorAll("[data-placeholder]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const label = link.getAttribute("data-placeholder");
+        toast.textContent = `${label} のURLは未設定です。Googleフォームや資料URL確定後に差し替えます。`;
+        toast.classList.add("show");
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => toast.classList.remove("show"), 3200);
+      });
+    });
+  </script>
+</body>
+</html>
