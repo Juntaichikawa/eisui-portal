@@ -686,6 +686,11 @@
           <p>複数施設にまたがる業者確認、見積、契約、修繕対応の照会をまとめます。</p>
           <a class="button unset" href="#" data-placeholder="業者一括照会フォーム">フォームURL未設定</a>
         </article>
+        <article class="card">
+          <h3><span class="mark green">端</span>デバイス管理</h3>
+          <p>各施設にある法人貸与デバイスの台帳更新、所在確認、故障・返却・追加申請を管理します。</p>
+          <a class="button unset" href="#" data-placeholder="デバイス管理フォーム">フォームURL未設定</a>
+        </article>
       </div>
     </section>
 
@@ -764,6 +769,14 @@
                 <td><span class="status published">公開済</span></td>
                 <td>市川</td>
               </tr>
+              <tr>
+                <td>5/27</td>
+                <td>高円寺</td>
+                <td>マーケ</td>
+                <td>デバイス台帳更新</td>
+                <td><span class="status waiting">未確認</span></td>
+                <td>マーケ</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -777,6 +790,7 @@
           <li><a href="#" data-placeholder="指定保管先ルール"><strong>指定保管先ルール</strong><span>未設定</span></a></li>
           <li><a href="#" data-placeholder="SNS・HP運用ルール"><strong>SNS・HP運用ルール</strong><span>未設定</span></a></li>
           <li><a href="#" data-placeholder="役所提出資料ルール"><strong>役所提出資料ルール</strong><span>未設定</span></a></li>
+          <li><a href="#" data-placeholder="デバイス台帳更新ルール"><strong>デバイス台帳更新ルール</strong><span>未設定</span></a></li>
         </ul>
       </aside>
     </section>
@@ -801,6 +815,28 @@
       </div>
     </section>
 
+    <section class="section">
+      <div class="section-head">
+        <h2>デバイス管理フォーム設計</h2>
+        <p>マーケが各施設の法人貸与デバイスを管理するためのフォーム例です。既存のデバイス台帳をもとに、定期棚卸しや変更申請に使います。</p>
+      </div>
+      <div class="panel">
+        <p style="margin-top: 0;">各施設で使用しているPC、タブレット、スマートフォン、周辺機器などの所在・状態を確認します。変更があった場合は、フォーム回答と台帳更新をセットで管理します。</p>
+        <div class="form-spec">
+          <div class="field"><strong>事業区分</strong><span>ラジオボタン: 通所、公共サービス</span></div>
+          <div class="field"><strong>施設名</strong><span>プルダウン: 対象施設一覧から選択</span></div>
+          <div class="field"><strong>担当者名</strong><span>短文</span></div>
+          <div class="field"><strong>申請区分</strong><span>ラジオボタン: 台帳更新、所在確認、故障報告、返却、追加申請、その他</span></div>
+          <div class="field"><strong>デバイス種別</strong><span>ラジオボタン: PC、タブレット、スマートフォン、プリンタ、その他周辺機器</span></div>
+          <div class="field"><strong>管理番号・資産番号</strong><span>短文: 台帳に記載されている番号</span></div>
+          <div class="field"><strong>利用者・設置場所</strong><span>短文: 職員名、事務所、相談室など</span></div>
+          <div class="field"><strong>状態</strong><span>ラジオボタン: 使用中、故障、保管中、返却予定、不明</span></div>
+          <div class="field"><strong>変更内容・詳細</strong><span>長文</span></div>
+          <div class="field"><strong>写真・資料</strong><span>指定保管先へ保存し、ファイル名をフォームに記載</span></div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="guide">
       <div class="section-head">
         <h2>ポータルの使い方</h2>
@@ -820,7 +856,7 @@
             </div>
             <div class="step">
               <strong>保管先を作る</strong>
-              <p>DirectCloudまたは社内共有領域に案件別フォルダを作成します。例: 人材/採用用写真/2026_05</p>
+              <p>DirectCloudまたは社内共有領域に案件別フォルダを作成します。例: 人材/採用用写真/2026_05、マーケ/デバイス台帳/2026_05</p>
             </div>
             <div class="step">
               <strong>ポータルに入口を追加する</strong>
@@ -871,7 +907,7 @@
         </article>
         <article class="card">
           <h3><span class="mark green">03</span>Phase2</h3>
-          <p>DirectCloud連携、LINE WORKS通知、未提出リマインド、提出状況ダッシュボード、前回資料との照合を拡張候補にします。</p>
+          <p>DirectCloud連携、LINE WORKS通知、未提出リマインド、提出状況ダッシュボード、前回資料との照合、デバイス台帳の差分確認を拡張候補にします。</p>
         </article>
       </div>
     </section>
