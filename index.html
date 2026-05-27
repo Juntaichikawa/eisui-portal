@@ -385,6 +385,67 @@
       font-size: 13px;
     }
 
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag-list span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 5px 10px;
+      color: #344054;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fbfcfd;
+      font-size: 13px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      padding: 14px 14px 14px 54px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+    }
+
+    .step::before {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      color: #fff;
+      border-radius: 6px;
+      background: var(--blue);
+      counter-increment: step;
+      content: counter(step);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
     .footer {
       margin-top: 48px;
       padding: 24px;
@@ -481,6 +542,8 @@
         <a href="#talent">人材</a>
         <a href="#marketing">マーケ</a>
         <a href="#insurance">介保指導</a>
+        <a href="#business">対象事業</a>
+        <a href="#guide">使い方</a>
         <a href="#status">提出状況</a>
         <a href="#manual">マニュアル</a>
       </div>
@@ -491,7 +554,7 @@
     <div class="hero-inner">
       <p class="eyebrow">社会福祉事業本部</p>
       <h1>営推依頼ポータル</h1>
-      <p class="lead">人材・マーケ・介護保険指導室からの発信、各施設からの依頼、提出物の保管先をこのポータルに集約します。</p>
+      <p class="lead">人材・マーケ・介護保険指導室からの発信、通所・公共サービス施設からの依頼、提出物の保管先をこのポータルに集約します。</p>
       <div class="hero-actions">
         <a class="button primary" href="#rooms">担当領域を見る</a>
         <a class="button secondary" href="#status">提出状況を確認</a>
@@ -523,6 +586,29 @@
           <h3><span class="mark green">効</span>期待する効果</h3>
           <p>依頼業務の削減、未対応の可視化、前回提出物との比較、施設側の迷いの軽減につなげます。</p>
         </article>
+      </div>
+    </section>
+
+    <section class="section" id="business">
+      <div class="section-head">
+        <h2>対象事業</h2>
+        <p>通所24施設と公共サービス施設を同じルールで管理します。公共サービスはいただいた一覧では26件あるため、25施設表記との整合は確認が必要です。</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>通所施設 24施設</h3>
+          <p style="margin-top: 0; color: var(--muted); font-size: 14px;">採用、広報、修繕、売上・KPI、役所提出資料などの依頼・提出対象です。</p>
+          <div class="tag-list">
+            <span>池尻</span><span>奥沢</span><span>高円寺</span><span>高円寺北</span><span>みどりの苑</span><span>宮前</span><span>仲町</span><span>せせらぎ</span><span>中野</span><span>荒川東部</span><span>東日暮里</span><span>枝川</span><span>つばめ</span><span>笹幡</span><span>千駄木</span><span>センター北</span><span>霧が丘</span><span>淡路</span><span>花の木</span><span>はるみ</span><span>白金</span><span>弥生</span><span>有馬</span><span>等々力</span>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>公共サービス施設</h3>
+          <p style="margin-top: 0; color: var(--muted); font-size: 14px;">公共サービス側の提出依頼・確認依頼も同じポータルで扱います。</p>
+          <div class="tag-list">
+            <span>仲町ふれあい館</span><span>高円寺高福</span><span>豊玉高福</span><span>目黒高福</span><span>白金台いきプラ</span><span>白金いきプラ</span><span>豊岡いきプラ</span><span>高輪いきプラ</span><span>栄町敬老館</span><span>西新宿シニア活動館</span><span>北新宿交流館</span><span>城東ふれあい</span><span>亀戸ふれあい</span><span>ふじみ野介護予防センター</span><span>荒川福祉センター</span><span>中野敬老館</span><span>滝野川いこいの家</span><span>名主の滝いこいの家</span><span>立花ゆうゆう館</span><span>亀戸福祉会館</span><span>墨田いきプラ</span><span>神応いきプラ</span><span>北区ファミサポ</span><span>霧が丘交流</span><span>高輪区民</span><span>北区いきがい</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -711,6 +797,60 @@
           <div class="field"><strong>確認事項</strong><span>個人情報・不要な写り込み確認済、採用広報での使用可、必要な同意確認済</span></div>
           <div class="field"><strong>備考</strong><span>長文</span></div>
           <div class="field"><strong>ステータス</strong><span>フォーム回答後、提出状況を完了または確認中に更新します</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="section-head">
+        <h2>ポータルの使い方</h2>
+        <p>回収依頼を出すときは、フォームURLを直接ばらまくより、ポータルに入口を作ってから案内する方が後から追跡しやすくなります。</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>回収依頼を出す手順</h3>
+          <div class="steps">
+            <div class="step">
+              <strong>依頼内容を決める</strong>
+              <p>対象事業、対象施設、提出期限、提出物、保管先、担当部署を決めます。</p>
+            </div>
+            <div class="step">
+              <strong>フォームを作成する</strong>
+              <p>施設名、担当者名、提出完了チェック、確認事項、備考を基本項目にします。ファイルはDirectCloud等へ保存し、フォームでは完了報告を受ける形が安全です。</p>
+            </div>
+            <div class="step">
+              <strong>保管先を作る</strong>
+              <p>DirectCloudまたは社内共有領域に案件別フォルダを作成します。例: 人材/採用用写真/2026_05</p>
+            </div>
+            <div class="step">
+              <strong>ポータルに入口を追加する</strong>
+              <p>該当する担当領域のカードにフォームURL、保管先、期限を設定します。</p>
+            </div>
+            <div class="step">
+              <strong>LINE WORKSやNI Collaboで案内する</strong>
+              <p>フォームURL単体ではなく、ポータルURLと依頼名を案内します。更新や再依頼があっても入口を一元化できます。</p>
+            </div>
+            <div class="step">
+              <strong>提出状況を確認する</strong>
+              <p>フォーム回答と保管先を確認し、未提出、確認中、完了、修正依頼のステータスで管理します。</p>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>案内文テンプレート</h3>
+          <p style="margin-top: 0; color: var(--muted); font-size: 14px;">施設へ送る文面の標準形です。依頼名、期限、対象施設、保管先だけ差し替えます。</p>
+          <div class="field">
+            <strong>件名</strong>
+            <span>【提出依頼】採用用写真の提出について</span>
+          </div>
+          <div class="field" style="margin-top: 12px;">
+            <strong>本文</strong>
+            <span>各施設ご担当者様。採用広報で使用する写真の提出をお願いいたします。提出内容、保存先、完了報告フォームは営推依頼ポータルに掲載しています。期限までにポータル内の該当メニューから提出完了報告をお願いいたします。</span>
+          </div>
+          <div class="field" style="margin-top: 12px;">
+            <strong>共有するURL</strong>
+            <span>https://juntaichikawa.github.io/eisui-portal/</span>
+          </div>
         </div>
       </div>
     </section>
