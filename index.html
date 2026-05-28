@@ -4,6 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>営推依頼ポータル</title>
+  <meta name="description" content="営業推進室の依頼、提出、保管先、提出状況を集約するポータルです。">
+  <meta property="og:title" content="営推依頼ポータル">
+  <meta property="og:description" content="人材・マーケ・介護保険指導室からの依頼、施設からの相談、提出状況を一元管理します。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://juntaichikawa.github.io/eisui-portal/">
   <style>
     :root {
       --ink: #202833;
@@ -335,6 +340,39 @@
     .status.checking { color: #7a4d00; background: #fef0c7; }
     .status.published { color: #05603a; background: #d1fadf; }
     .status.done { color: #344054; background: #eaecf0; }
+    .status.open { color: #175cd3; background: #dbeafe; }
+    .status.unconfirmed { color: #b42318; background: #fee4e2; }
+    .status.closed { color: #344054; background: #eaecf0; }
+
+    .template-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .template-grid label,
+    .template-form label {
+      display: grid;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .template-output {
+      width: 100%;
+      min-height: 170px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font: inherit;
+      resize: vertical;
+    }
 
     .manual-list {
       display: grid;
@@ -448,7 +486,7 @@
 
     .board-tools {
       display: grid;
-      grid-template-columns: minmax(260px, 1fr) auto;
+      grid-template-columns: minmax(240px, 1fr) minmax(180px, 240px) auto auto;
       gap: 12px;
       align-items: center;
       margin-bottom: 16px;
@@ -488,6 +526,57 @@
       background: #eef6fb;
       color: var(--blue-dark);
       font-weight: 700;
+    }
+
+    .select-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .toggle-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #344054;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .deadline-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .deadline-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .deadline-item strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .deadline-item span {
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .board-list {
@@ -532,6 +621,14 @@
       margin: 0;
       color: var(--muted);
       font-size: 14px;
+    }
+
+    .board-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .attachment-row {
@@ -611,6 +708,7 @@
       .grid,
       .two-col,
       .form-spec,
+      .template-grid,
       .board-tools {
         grid-template-columns: 1fr;
       }
@@ -667,6 +765,7 @@
         <a href="#business">対象事業</a>
         <a href="#guide">使い方</a>
         <a href="#rules">運用ルール</a>
+        <a href="#deadlines">締切</a>
         <a href="#board">掲示板</a>
         <a href="#status">提出状況</a>
         <a href="#manual">マニュアル</a>
@@ -682,6 +781,7 @@
       <div class="hero-actions">
         <a class="button primary" href="#rooms">担当領域を見る</a>
         <a class="button secondary" href="#status">提出状況を確認</a>
+        <a class="button secondary" href="#board">施設長から相談する</a>
       </div>
     </div>
   </section>
@@ -690,6 +790,17 @@
     <section class="notice" aria-label="運用ルール">
       <p><strong>運用ルール:</strong> LINE、NI Collabo、個別メールで散らばっていた発信・提出依頼をこのポータルに寄せます。依頼、提出、保管、確認の場所をそろえることで、前回資料との照合、未対応確認、依頼業務の削減につなげます。</p>
       <a class="button secondary" style="color: var(--blue-dark); border-color: #cfe4f2; background: #eef6fb;" href="#forms">フォーム設計を見る</a>
+    </section>
+
+    <section class="section" id="deadlines">
+      <div class="section-head">
+        <h2>直近の締切タスク</h2>
+        <p>期限が近い依頼を自動で上に並べます。施設別URLで開いた場合は、その施設に関係する依頼だけを優先表示します。</p>
+      </div>
+      <div class="panel">
+        <div class="deadline-list" id="deadlineList"></div>
+        <div class="empty-message" id="deadlineEmpty">直近の締切タスクはありません。</div>
+      </div>
     </section>
 
     <section class="section" id="rules">
@@ -883,6 +994,9 @@
       <div class="panel">
         <div class="board-tools">
           <input class="search-input" id="boardSearch" type="search" placeholder="キーワード検索: 施設名、担当者、カテゴリ、困りごと、資料名">
+          <select class="select-input" id="facilityFilter" aria-label="施設別ビュー">
+            <option value="all">施設別ビュー: すべて</option>
+          </select>
           <div class="filter-row" aria-label="掲示板カテゴリ">
             <button class="filter-button active" type="button" data-board-filter="all">すべて</button>
             <button class="filter-button" type="button" data-board-filter="人材">人材</button>
@@ -890,54 +1004,71 @@
             <button class="filter-button" type="button" data-board-filter="介保指導">介保指導</button>
             <button class="filter-button" type="button" data-board-filter="困りごと">困りごと</button>
           </div>
+          <label class="toggle-chip"><input id="showArchived" type="checkbox"> 完了・アーカイブも表示</label>
         </div>
         <div class="board-list" id="boardList">
-          <article class="board-item" data-category="人材" data-search="人材 採用用写真提出 中野 通所 佐藤 2026-06-10 写真 採用広報 ファイル名">
+          <article class="board-item" data-category="人材" data-facility="中野" data-status="受付中" data-due="2026-06-10" data-archived="false" data-search="人材 採用用写真提出 中野 通所 佐藤 2026-06-10 写真 採用広報 ファイル名">
             <div class="board-meta">
-              <span>人材</span><span>通所</span><span>中野</span><span>担当: 佐藤</span><span>期限: 2026/06/10</span><span>状態: 受付中</span>
+              <span>人材</span><span>通所</span><span>中野</span><span>担当: 佐藤</span><span>期限: 2026/06/10</span><span class="status open">受付中</span>
             </div>
             <h3 class="board-title">採用用写真提出</h3>
             <p class="board-summary">採用広報で使用する写真を1枚提出。指定保管先へ保存後、フォームで完了報告します。</p>
             <div class="attachment-row">
               <a class="attachment" href="https://docs.google.com/forms/d/e/1FAIpQLScdnb37v4uAzB9M0CaUS8H5Hgb6OLexkYfyDY3Nmm8F6V77puw/viewform" target="_blank" rel="noopener">フォーム</a>
+              <a class="attachment" href="#forms">マニュアル</a>
               <a class="attachment" href="#" data-placeholder="採用用写真提出 保管先">保管先</a>
               <a class="attachment" href="#" data-placeholder="採用用写真提出 PDF資料">PDF</a>
             </div>
           </article>
-          <article class="board-item" data-category="マーケ" data-search="マーケ デバイス台帳更新 高円寺 通所 鈴木 2026-06-15 法人貸与 デバイス PC タブレット 台帳">
+          <article class="board-item" data-category="マーケ" data-facility="高円寺" data-status="未確認" data-due="2026-06-15" data-archived="false" data-search="マーケ デバイス台帳更新 高円寺 通所 鈴木 2026-06-15 法人貸与 デバイス PC タブレット 台帳">
             <div class="board-meta">
-              <span>マーケ</span><span>通所</span><span>高円寺</span><span>担当: 鈴木</span><span>期限: 2026/06/15</span><span>状態: 未確認</span>
+              <span>マーケ</span><span>通所</span><span>高円寺</span><span>担当: 鈴木</span><span>期限: 2026/06/15</span><span class="status unconfirmed">未確認</span>
             </div>
             <h3 class="board-title">デバイス台帳更新</h3>
             <p class="board-summary">法人貸与デバイスの所在、状態、管理番号を確認し、台帳更新の必要有無を報告します。</p>
             <div class="attachment-row">
               <a class="attachment" href="#" data-placeholder="デバイス管理フォーム">フォーム</a>
+              <a class="attachment" href="#manual">マニュアル</a>
               <a class="attachment" href="#" data-placeholder="デバイス台帳 Excel">台帳</a>
               <a class="attachment" href="#" data-placeholder="デバイス写真 保管先">画像</a>
             </div>
           </article>
-          <article class="board-item" data-category="介保指導" data-search="介保指導 役所提出資料 公共サービス 北区いきがい 田中 2026-06-07 行政 資料 提出">
+          <article class="board-item" data-category="介保指導" data-facility="北区いきがい" data-status="確認中" data-due="2026-06-07" data-archived="false" data-search="介保指導 役所提出資料 公共サービス 北区いきがい 田中 2026-06-07 行政 資料 提出">
             <div class="board-meta">
-              <span>介保指導</span><span>公共サービス</span><span>北区いきがい</span><span>担当: 田中</span><span>期限: 2026/06/07</span><span>状態: 確認中</span>
+              <span>介保指導</span><span>公共サービス</span><span>北区いきがい</span><span>担当: 田中</span><span>期限: 2026/06/07</span><span class="status checking">確認中</span>
             </div>
             <h3 class="board-title">役所提出資料 回収</h3>
             <p class="board-summary">役所提出用の確認資料を回収。前回提出資料との差分が分かるよう、保管先へ格納します。</p>
             <div class="attachment-row">
               <a class="attachment" href="#" data-placeholder="役所提出資料フォーム">フォーム</a>
+              <a class="attachment" href="#manual">マニュアル</a>
               <a class="attachment" href="#" data-placeholder="前回提出資料PDF">前回PDF</a>
               <a class="attachment" href="#" data-placeholder="提出先フォルダ">保管先</a>
             </div>
           </article>
-          <article class="board-item" data-category="困りごと" data-search="困りごと マーケ 施設不備フォロー 公共サービス 白金いきプラ 山本 2026-06-20 修繕 業者 写真">
+          <article class="board-item" data-category="困りごと" data-facility="白金いきプラ" data-status="受付中" data-due="2026-06-20" data-archived="false" data-search="困りごと マーケ 施設不備フォロー 公共サービス 白金いきプラ 山本 2026-06-20 修繕 業者 写真">
             <div class="board-meta">
-              <span>困りごと</span><span>公共サービス</span><span>白金いきプラ</span><span>担当: 山本</span><span>期限: 2026/06/20</span><span>状態: 受付中</span>
+              <span>困りごと</span><span>公共サービス</span><span>白金いきプラ</span><span>担当: 山本</span><span>期限: 2026/06/20</span><span class="status open">受付中</span>
             </div>
             <h3 class="board-title">施設不備フォロー</h3>
             <p class="board-summary">施設内の不備内容、写真、業者確認状況をまとめ、後から類似事例を検索できるようにします。</p>
             <div class="attachment-row">
               <a class="attachment" href="#" data-placeholder="施設不備フォローフォーム">フォーム</a>
+              <a class="attachment" href="#manual">マニュアル</a>
               <a class="attachment" href="#" data-placeholder="不備写真 保管先">画像</a>
               <a class="attachment" href="#" data-placeholder="業者見積PDF">PDF</a>
+            </div>
+          </article>
+          <article class="board-item" data-category="マーケ" data-facility="池尻" data-status="完了" data-due="2026-05-24" data-archived="true" data-search="マーケ SNS素材提出 池尻 通所 完了 アーカイブ 写真 広報">
+            <div class="board-meta">
+              <span>マーケ</span><span>通所</span><span>池尻</span><span>担当: 鈴木</span><span>期限: 2026/05/24</span><span class="status closed">完了</span>
+            </div>
+            <h3 class="board-title">SNS素材提出</h3>
+            <p class="board-summary">広報投稿用の写真素材提出。完了済みの過去依頼として、アーカイブ切替時だけ表示します。</p>
+            <div class="attachment-row">
+              <a class="attachment" href="#" data-placeholder="SNS素材提出フォーム">フォーム</a>
+              <a class="attachment" href="#manual">マニュアル</a>
+              <a class="attachment" href="#" data-placeholder="SNS素材 保管先">保管先</a>
             </div>
           </article>
         </div>
@@ -1007,6 +1138,8 @@
             </tbody>
           </table>
         </div>
+        <p style="color: var(--muted); font-size: 14px;">実運用ではGoogleフォーム回答先のスプレッドシートをGASまたはiframeでここに接続します。回答シートURLが確定したら、静的表からリアルタイム表示へ差し替えます。</p>
+        <a class="button secondary" href="#" data-placeholder="提出状況スプレッドシート">回答シートを開く</a>
       </div>
 
       <aside class="panel" id="manual">
@@ -1101,18 +1234,26 @@
         </div>
         <div class="panel">
           <h3>案内文テンプレート</h3>
-          <p style="margin-top: 0; color: var(--muted); font-size: 14px;">施設へ送る文面の標準形です。依頼名、期限、対象施設、保管先だけ差し替えます。</p>
-          <div class="field">
-            <strong>件名</strong>
-            <span>【提出依頼】採用用写真の提出について</span>
-          </div>
-          <div class="field" style="margin-top: 12px;">
-            <strong>本文</strong>
-            <span>各施設ご担当者様。採用広報で使用する写真の提出をお願いいたします。提出内容、保存先、完了報告フォームは営推依頼ポータルに掲載しています。期限までにポータル内の該当メニューから提出完了報告をお願いいたします。</span>
-          </div>
-          <div class="field" style="margin-top: 12px;">
-            <strong>共有するURL</strong>
-            <span>https://juntaichikawa.github.io/eisui-portal/</span>
+          <p style="margin-top: 0; color: var(--muted); font-size: 14px;">依頼名、期限、対象施設、保管先を入れると、LINE WORKSやNI Collaboへ貼れる文面を作成します。</p>
+          <div class="template-form">
+            <div class="template-grid">
+              <label>依頼名
+                <input class="search-input" id="templateTitle" type="text" value="採用用写真の提出">
+              </label>
+              <label>期限
+                <input class="search-input" id="templateDue" type="date" value="2026-06-10">
+              </label>
+              <label>対象施設
+                <input class="search-input" id="templateTarget" type="text" value="通所24施設">
+              </label>
+              <label>保管先
+                <input class="search-input" id="templateStorage" type="text" value="指定保管先フォルダ">
+              </label>
+            </div>
+            <label>案内文
+              <textarea class="template-output" id="templateOutput" readonly></textarea>
+            </label>
+            <button class="button primary" id="copyTemplate" type="button">案内文をコピー</button>
           </div>
         </div>
       </div>
@@ -1165,24 +1306,96 @@
     const boardItems = Array.from(document.querySelectorAll(".board-item"));
     const boardEmpty = document.querySelector("#boardEmpty");
     const boardFilters = Array.from(document.querySelectorAll("[data-board-filter]"));
+    const facilityFilter = document.querySelector("#facilityFilter");
+    const showArchived = document.querySelector("#showArchived");
+    const deadlineList = document.querySelector("#deadlineList");
+    const deadlineEmpty = document.querySelector("#deadlineEmpty");
+    const allFacilities = [
+      "池尻", "奥沢", "高円寺", "高円寺北", "みどりの苑", "宮前", "仲町", "せせらぎ", "中野", "荒川東部", "東日暮里", "枝川", "つばめ", "笹幡", "千駄木", "センター北", "霧が丘", "淡路", "花の木", "はるみ", "白金", "弥生", "有馬", "等々力",
+      "仲町ふれあい館", "高円寺高福", "豊玉高福", "目黒高福", "白金台いきプラ", "白金いきプラ", "豊岡いきプラ", "高輪いきプラ", "栄町敬老館", "西新宿シニア活動館", "北新宿交流館", "城東ふれあい", "亀戸ふれあい", "ふじみ野介護予防センター", "荒川福祉センター", "中野敬老館", "滝野川いこいの家", "名主の滝いこいの家", "立花ゆうゆう館", "亀戸福祉会館", "墨田いきプラ", "神応いきプラ", "北区ファミサポ", "霧が丘交流", "高輪区民", "北区いきがい"
+    ];
     let activeBoardFilter = "all";
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 3200);
+    }
+
+    function getSelectedFacility() {
+      return facilityFilter ? facilityFilter.value : "all";
+    }
+
+    function formatDate(value) {
+      if (!value) return "";
+      const date = new Date(`${value}T00:00:00`);
+      if (Number.isNaN(date.getTime())) return value;
+      return `${date.getMonth() + 1}/${date.getDate()}`;
+    }
+
+    function buildFacilityOptions() {
+      if (!facilityFilter) return;
+      const facilities = Array.from(new Set([...allFacilities, ...boardItems.map((item) => item.dataset.facility).filter(Boolean)])).sort((a, b) => a.localeCompare(b, "ja"));
+      facilities.forEach((facility) => {
+        const option = document.createElement("option");
+        option.value = facility;
+        option.textContent = facility;
+        facilityFilter.append(option);
+      });
+
+      const params = new URLSearchParams(window.location.search);
+      const facilityParam = params.get("facility");
+      if (facilityParam && facilities.includes(facilityParam)) {
+        facilityFilter.value = facilityParam;
+      }
+    }
+
+    function updateDeadlineList() {
+      if (!deadlineList || !deadlineEmpty) return;
+      const selectedFacility = getSelectedFacility();
+      const includeArchived = showArchived ? showArchived.checked : false;
+      const items = boardItems
+        .filter((item) => includeArchived || item.dataset.archived !== "true")
+        .filter((item) => selectedFacility === "all" || item.dataset.facility === selectedFacility)
+        .filter((item) => item.dataset.due)
+        .sort((a, b) => a.dataset.due.localeCompare(b.dataset.due))
+        .slice(0, 5);
+
+      deadlineList.innerHTML = "";
+      items.forEach((item) => {
+        const row = document.createElement("a");
+        row.className = "deadline-item";
+        row.href = "#board";
+        row.innerHTML = `<div><strong>${item.querySelector(".board-title").textContent}</strong><span>${item.dataset.facility} / ${item.dataset.category} / ${item.dataset.status}</span></div><span>期限 ${formatDate(item.dataset.due)}</span>`;
+        deadlineList.append(row);
+      });
+      deadlineEmpty.classList.toggle("show", items.length === 0);
+    }
 
     function updateBoard() {
       if (!boardSearch || !boardEmpty) return;
       const query = boardSearch.value.trim().toLowerCase();
+      const selectedFacility = getSelectedFacility();
+      const includeArchived = showArchived ? showArchived.checked : false;
       let visibleCount = 0;
 
       boardItems.forEach((item) => {
         const category = item.getAttribute("data-category");
         const text = item.getAttribute("data-search").toLowerCase();
+        const facility = item.getAttribute("data-facility");
+        const archived = item.getAttribute("data-archived") === "true";
         const matchesCategory = activeBoardFilter === "all" || category === activeBoardFilter;
+        const matchesFacility = selectedFacility === "all" || facility === selectedFacility;
+        const matchesArchive = includeArchived || !archived;
         const matchesQuery = !query || text.includes(query);
-        const visible = matchesCategory && matchesQuery;
+        const visible = matchesCategory && matchesFacility && matchesArchive && matchesQuery;
         item.hidden = !visible;
         if (visible) visibleCount += 1;
       });
 
       boardEmpty.classList.toggle("show", visibleCount === 0);
+      updateDeadlineList();
     }
 
     boardFilters.forEach((button) => {
@@ -1196,6 +1409,60 @@
     if (boardSearch) {
       boardSearch.addEventListener("input", updateBoard);
     }
+
+    if (facilityFilter) {
+      buildFacilityOptions();
+      facilityFilter.addEventListener("change", () => {
+        const url = new URL(window.location.href);
+        if (facilityFilter.value === "all") {
+          url.searchParams.delete("facility");
+        } else {
+          url.searchParams.set("facility", facilityFilter.value);
+        }
+        window.history.replaceState({}, "", url);
+        updateBoard();
+      });
+    }
+
+    if (showArchived) {
+      showArchived.addEventListener("change", updateBoard);
+    }
+
+    const templateTitle = document.querySelector("#templateTitle");
+    const templateDue = document.querySelector("#templateDue");
+    const templateTarget = document.querySelector("#templateTarget");
+    const templateStorage = document.querySelector("#templateStorage");
+    const templateOutput = document.querySelector("#templateOutput");
+    const copyTemplate = document.querySelector("#copyTemplate");
+
+    function updateTemplate() {
+      if (!templateOutput) return;
+      const title = templateTitle.value || "提出依頼";
+      const due = templateDue.value ? templateDue.value.replaceAll("-", "/") : "期限未設定";
+      const target = templateTarget.value || "対象施設";
+      const storage = templateStorage.value || "指定保管先";
+      templateOutput.value = `各施設ご担当者様\n\n${title}についてご対応をお願いいたします。\n対象: ${target}\n期限: ${due}\n保管先: ${storage}\n\n提出内容、フォームURL、補足資料は営推依頼ポータルに掲載しています。\n期限までにポータル内の該当メニューから提出完了報告をお願いいたします。\n\nhttps://juntaichikawa.github.io/eisui-portal/`;
+    }
+
+    [templateTitle, templateDue, templateTarget, templateStorage].forEach((input) => {
+      if (input) input.addEventListener("input", updateTemplate);
+    });
+
+    if (copyTemplate) {
+      copyTemplate.addEventListener("click", async () => {
+        updateTemplate();
+        try {
+          await navigator.clipboard.writeText(templateOutput.value);
+          showToast("案内文をコピーしました。");
+        } catch (error) {
+          templateOutput.select();
+          showToast("コピーできない場合は、案内文を選択してコピーしてください。");
+        }
+      });
+    }
+
+    updateTemplate();
+    updateBoard();
   </script>
 </body>
 </html>
