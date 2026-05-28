@@ -446,6 +446,127 @@
       font-size: 14px;
     }
 
+    .board-tools {
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-button {
+      min-height: 36px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #344054;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+    }
+
+    .filter-button.active {
+      border-color: #b7d6ea;
+      background: #eef6fb;
+      color: var(--blue-dark);
+      font-weight: 700;
+    }
+
+    .board-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .board-item {
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .board-item[hidden] {
+      display: none;
+    }
+
+    .board-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .board-meta span {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #f2f4f7;
+    }
+
+    .board-title {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .board-summary {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .attachment-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .attachment {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 34px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fbfcfd;
+      color: #344054;
+      font-size: 13px;
+    }
+
+    .empty-message {
+      display: none;
+      padding: 18px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      background: #fff;
+      text-align: center;
+    }
+
+    .empty-message.show {
+      display: block;
+    }
+
     .footer {
       margin-top: 48px;
       padding: 24px;
@@ -489,7 +610,8 @@
 
       .grid,
       .two-col,
-      .form-spec {
+      .form-spec,
+      .board-tools {
         grid-template-columns: 1fr;
       }
 
@@ -545,6 +667,7 @@
         <a href="#business">対象事業</a>
         <a href="#guide">使い方</a>
         <a href="#rules">運用ルール</a>
+        <a href="#board">掲示板</a>
         <a href="#status">提出状況</a>
         <a href="#manual">マニュアル</a>
       </div>
@@ -749,6 +872,76 @@
           <p>制度変更、提出期限、施設向け周知の確認状況を管理します。</p>
           <a class="button unset" href="#" data-placeholder="アナウンス確認フォーム">フォームURL未設定</a>
         </article>
+      </div>
+    </section>
+
+    <section class="section" id="board">
+      <div class="section-head">
+        <h2>掲示板・タスク検索</h2>
+        <p>担当者、施設、事業区分、期限、カテゴリ、添付資料をまとめて確認します。困ったことや過去対応をあとから検索できるようにします。</p>
+      </div>
+      <div class="panel">
+        <div class="board-tools">
+          <input class="search-input" id="boardSearch" type="search" placeholder="キーワード検索: 施設名、担当者、カテゴリ、困りごと、資料名">
+          <div class="filter-row" aria-label="掲示板カテゴリ">
+            <button class="filter-button active" type="button" data-board-filter="all">すべて</button>
+            <button class="filter-button" type="button" data-board-filter="人材">人材</button>
+            <button class="filter-button" type="button" data-board-filter="マーケ">マーケ</button>
+            <button class="filter-button" type="button" data-board-filter="介保指導">介保指導</button>
+            <button class="filter-button" type="button" data-board-filter="困りごと">困りごと</button>
+          </div>
+        </div>
+        <div class="board-list" id="boardList">
+          <article class="board-item" data-category="人材" data-search="人材 採用用写真提出 中野 通所 佐藤 2026-06-10 写真 採用広報 ファイル名">
+            <div class="board-meta">
+              <span>人材</span><span>通所</span><span>中野</span><span>担当: 佐藤</span><span>期限: 2026/06/10</span><span>状態: 受付中</span>
+            </div>
+            <h3 class="board-title">採用用写真提出</h3>
+            <p class="board-summary">採用広報で使用する写真を1枚提出。指定保管先へ保存後、フォームで完了報告します。</p>
+            <div class="attachment-row">
+              <a class="attachment" href="https://docs.google.com/forms/d/e/1FAIpQLScdnb37v4uAzB9M0CaUS8H5Hgb6OLexkYfyDY3Nmm8F6V77puw/viewform" target="_blank" rel="noopener">フォーム</a>
+              <a class="attachment" href="#" data-placeholder="採用用写真提出 保管先">保管先</a>
+              <a class="attachment" href="#" data-placeholder="採用用写真提出 PDF資料">PDF</a>
+            </div>
+          </article>
+          <article class="board-item" data-category="マーケ" data-search="マーケ デバイス台帳更新 高円寺 通所 鈴木 2026-06-15 法人貸与 デバイス PC タブレット 台帳">
+            <div class="board-meta">
+              <span>マーケ</span><span>通所</span><span>高円寺</span><span>担当: 鈴木</span><span>期限: 2026/06/15</span><span>状態: 未確認</span>
+            </div>
+            <h3 class="board-title">デバイス台帳更新</h3>
+            <p class="board-summary">法人貸与デバイスの所在、状態、管理番号を確認し、台帳更新の必要有無を報告します。</p>
+            <div class="attachment-row">
+              <a class="attachment" href="#" data-placeholder="デバイス管理フォーム">フォーム</a>
+              <a class="attachment" href="#" data-placeholder="デバイス台帳 Excel">台帳</a>
+              <a class="attachment" href="#" data-placeholder="デバイス写真 保管先">画像</a>
+            </div>
+          </article>
+          <article class="board-item" data-category="介保指導" data-search="介保指導 役所提出資料 公共サービス 北区いきがい 田中 2026-06-07 行政 資料 提出">
+            <div class="board-meta">
+              <span>介保指導</span><span>公共サービス</span><span>北区いきがい</span><span>担当: 田中</span><span>期限: 2026/06/07</span><span>状態: 確認中</span>
+            </div>
+            <h3 class="board-title">役所提出資料 回収</h3>
+            <p class="board-summary">役所提出用の確認資料を回収。前回提出資料との差分が分かるよう、保管先へ格納します。</p>
+            <div class="attachment-row">
+              <a class="attachment" href="#" data-placeholder="役所提出資料フォーム">フォーム</a>
+              <a class="attachment" href="#" data-placeholder="前回提出資料PDF">前回PDF</a>
+              <a class="attachment" href="#" data-placeholder="提出先フォルダ">保管先</a>
+            </div>
+          </article>
+          <article class="board-item" data-category="困りごと" data-search="困りごと マーケ 施設不備フォロー 公共サービス 白金いきプラ 山本 2026-06-20 修繕 業者 写真">
+            <div class="board-meta">
+              <span>困りごと</span><span>公共サービス</span><span>白金いきプラ</span><span>担当: 山本</span><span>期限: 2026/06/20</span><span>状態: 受付中</span>
+            </div>
+            <h3 class="board-title">施設不備フォロー</h3>
+            <p class="board-summary">施設内の不備内容、写真、業者確認状況をまとめ、後から類似事例を検索できるようにします。</p>
+            <div class="attachment-row">
+              <a class="attachment" href="#" data-placeholder="施設不備フォローフォーム">フォーム</a>
+              <a class="attachment" href="#" data-placeholder="不備写真 保管先">画像</a>
+              <a class="attachment" href="#" data-placeholder="業者見積PDF">PDF</a>
+            </div>
+          </article>
+        </div>
+        <div class="empty-message" id="boardEmpty">該当する掲示板項目がありません。</div>
       </div>
     </section>
 
@@ -967,6 +1160,42 @@
         toastTimer = window.setTimeout(() => toast.classList.remove("show"), 3200);
       });
     });
+
+    const boardSearch = document.querySelector("#boardSearch");
+    const boardItems = Array.from(document.querySelectorAll(".board-item"));
+    const boardEmpty = document.querySelector("#boardEmpty");
+    const boardFilters = Array.from(document.querySelectorAll("[data-board-filter]"));
+    let activeBoardFilter = "all";
+
+    function updateBoard() {
+      if (!boardSearch || !boardEmpty) return;
+      const query = boardSearch.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      boardItems.forEach((item) => {
+        const category = item.getAttribute("data-category");
+        const text = item.getAttribute("data-search").toLowerCase();
+        const matchesCategory = activeBoardFilter === "all" || category === activeBoardFilter;
+        const matchesQuery = !query || text.includes(query);
+        const visible = matchesCategory && matchesQuery;
+        item.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      boardEmpty.classList.toggle("show", visibleCount === 0);
+    }
+
+    boardFilters.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeBoardFilter = button.getAttribute("data-board-filter");
+        boardFilters.forEach((item) => item.classList.toggle("active", item === button));
+        updateBoard();
+      });
+    });
+
+    if (boardSearch) {
+      boardSearch.addEventListener("input", updateBoard);
+    }
   </script>
 </body>
 </html>
