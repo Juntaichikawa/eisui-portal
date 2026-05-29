@@ -430,7 +430,8 @@
       margin-top: 14px;
     }
 
-    .tag-list span {
+    .tag-list span,
+    .tag-list a {
       display: inline-flex;
       align-items: center;
       min-height: 30px;
@@ -440,6 +441,13 @@
       border-radius: 999px;
       background: #fbfcfd;
       font-size: 13px;
+      text-decoration: none;
+    }
+
+    .tag-list a:hover {
+      border-color: #b7d6ea;
+      background: #eef6fb;
+      color: var(--blue-dark);
     }
 
     .steps {
@@ -1351,6 +1359,36 @@
       }
     }
 
+    function applyFacilityView(facility) {
+      if (!facilityFilter) return;
+      facilityFilter.value = facility || "all";
+      const url = new URL(window.location.href);
+      if (!facility || facility === "all") {
+        url.searchParams.delete("facility");
+      } else {
+        url.searchParams.set("facility", facility);
+      }
+      url.hash = "board";
+      window.history.replaceState({}, "", url);
+      updateBoard();
+      document.querySelector("#board")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function enhanceFacilityTags() {
+      document.querySelectorAll(".tag-list span").forEach((tag) => {
+        const facility = tag.textContent.trim();
+        const link = document.createElement("a");
+        link.href = `?facility=${encodeURIComponent(facility)}#board`;
+        link.textContent = facility;
+        link.setAttribute("aria-label", `${facility}のタスクを見る`);
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          applyFacilityView(facility);
+        });
+        tag.replaceWith(link);
+      });
+    }
+
     function updateDeadlineList() {
       if (!deadlineList || !deadlineEmpty) return;
       const selectedFacility = getSelectedFacility();
@@ -1413,14 +1451,7 @@
     if (facilityFilter) {
       buildFacilityOptions();
       facilityFilter.addEventListener("change", () => {
-        const url = new URL(window.location.href);
-        if (facilityFilter.value === "all") {
-          url.searchParams.delete("facility");
-        } else {
-          url.searchParams.set("facility", facilityFilter.value);
-        }
-        window.history.replaceState({}, "", url);
-        updateBoard();
+        applyFacilityView(facilityFilter.value);
       });
     }
 
@@ -1462,6 +1493,7 @@
     }
 
     updateTemplate();
+    enhanceFacilityTags();
     updateBoard();
   </script>
 </body>
