@@ -374,6 +374,18 @@
       resize: vertical;
     }
 
+    .mock-form-box {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mock-form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
     .manual-list {
       display: grid;
       gap: 10px;
@@ -926,12 +938,12 @@
         <article class="card">
           <h3><span class="mark teal">教</span>教育・研修提出</h3>
           <p>研修受講状況、教育資料、施設への確認依頼をまとめます。</p>
-          <a class="button unset" href="#" data-placeholder="教育・研修提出フォーム">仮フォーム入口</a>
+          <a class="button unset" href="?form=training#temporary-form">仮フォーム入口</a>
         </article>
         <article class="card">
           <h3><span class="mark green">採</span>採用依頼・相談</h3>
           <p>求人内容、採用ページ、採用媒体、施設からの採用相談を受け付けます。</p>
-          <a class="button unset" href="#" data-placeholder="採用依頼・相談フォーム">仮フォーム入口</a>
+          <a class="button unset" href="?form=recruit-consult#temporary-form">仮フォーム入口</a>
         </article>
       </div>
     </section>
@@ -945,27 +957,27 @@
         <article class="card" id="pr">
           <h3><span class="mark blue">HP</span>HP掲載依頼</h3>
           <p>活動報告・イベント・採用・お知らせ・地域交流など、HP掲載に関する依頼・素材提出を受け付けます。</p>
-          <a class="button unset" href="#" data-placeholder="HP掲載依頼フォーム">仮フォーム入口</a>
+          <a class="button unset" href="?form=hp#temporary-form">仮フォーム入口</a>
         </article>
         <article class="card">
           <h3><span class="mark teal">SN</span>SNS素材提出</h3>
           <p>Instagram・Googleビジネスプロフィール投稿用の写真や文章を提出・共有します。</p>
-          <a class="button unset" href="#" data-placeholder="SNS素材提出フォーム">仮フォーム入口</a>
+          <a class="button unset" href="?form=sns#temporary-form">仮フォーム入口</a>
         </article>
         <article class="card">
           <h3><span class="mark red">不</span>施設不備フォロー</h3>
           <p>設備不備、修繕、備品、業者対応など、施設運営上のフォロー事項を管理します。</p>
-          <a class="button unset" href="#" data-placeholder="施設不備フォローフォーム">仮フォーム入口</a>
+          <a class="button unset" href="?form=facility-issue#temporary-form">仮フォーム入口</a>
         </article>
         <article class="card">
           <h3><span class="mark yellow">業</span>業者一括照会</h3>
           <p>複数施設にまたがる業者確認、見積、契約、修繕対応の照会をまとめます。</p>
-          <a class="button unset" href="#" data-placeholder="業者一括照会フォーム">仮フォーム入口</a>
+          <a class="button unset" href="?form=vendor#temporary-form">仮フォーム入口</a>
         </article>
         <article class="card">
           <h3><span class="mark green">端</span>デバイス管理</h3>
           <p>各施設にある法人貸与デバイスの台帳更新、所在確認、故障・返却・追加申請を管理します。</p>
-          <a class="button unset" href="#" data-placeholder="デバイス管理フォーム">仮フォーム入口</a>
+          <a class="button unset" href="?form=device#temporary-form">仮フォーム入口</a>
         </article>
       </div>
     </section>
@@ -979,17 +991,17 @@
         <article class="card">
           <h3><span class="mark blue">売</span>売上・KPI報告</h3>
           <p>通所の売上、稼働率、KPI、施設状況など月次で必要な報告を提出します。</p>
-          <a class="button unset" href="#" data-placeholder="売上・KPI報告フォーム">仮フォーム入口</a>
+          <a class="button unset" href="?form=kpi#temporary-form">仮フォーム入口</a>
         </article>
         <article class="card">
           <h3><span class="mark teal">役</span>役所提出資料</h3>
           <p>行政提出資料、照会回答、各施設からの必要資料を取りまとめます。</p>
-          <a class="button unset" href="#" data-placeholder="役所提出資料フォーム">仮フォーム入口</a>
+          <a class="button unset" href="?form=government#temporary-form">仮フォーム入口</a>
         </article>
         <article class="card">
           <h3><span class="mark violet">周</span>アナウンス確認</h3>
           <p>制度変更、提出期限、施設向け周知の確認状況を管理します。</p>
-          <a class="button unset" href="#" data-placeholder="アナウンス確認フォーム">仮フォーム入口</a>
+          <a class="button unset" href="?form=announcement#temporary-form">仮フォーム入口</a>
         </article>
       </div>
     </section>
@@ -1035,7 +1047,7 @@
             <h3 class="board-title">デバイス台帳更新</h3>
             <p class="board-summary">法人貸与デバイスの所在、状態、管理番号を確認し、台帳更新の必要有無を報告します。</p>
             <div class="attachment-row">
-              <a class="attachment" href="#" data-placeholder="デバイス管理フォーム">フォーム</a>
+              <a class="attachment" href="?form=device#temporary-form">フォーム</a>
               <a class="attachment" href="#manual">マニュアル</a>
               <a class="attachment" href="#" data-placeholder="デバイス台帳 Excel">台帳</a>
               <a class="attachment" href="#" data-placeholder="デバイス写真 保管先">画像</a>
@@ -1048,7 +1060,7 @@
             <h3 class="board-title">役所提出資料 回収</h3>
             <p class="board-summary">役所提出用の確認資料を回収。前回提出資料との差分が分かるよう、保管先へ格納します。</p>
             <div class="attachment-row">
-              <a class="attachment" href="#" data-placeholder="役所提出資料フォーム">フォーム</a>
+              <a class="attachment" href="?form=government#temporary-form">フォーム</a>
               <a class="attachment" href="#manual">マニュアル</a>
               <a class="attachment" href="#" data-placeholder="前回提出資料PDF">前回PDF</a>
               <a class="attachment" href="#" data-placeholder="提出先フォルダ">保管先</a>
@@ -1061,7 +1073,7 @@
             <h3 class="board-title">施設不備フォロー</h3>
             <p class="board-summary">施設内の不備内容、写真、業者確認状況をまとめ、後から類似事例を検索できるようにします。</p>
             <div class="attachment-row">
-              <a class="attachment" href="#" data-placeholder="施設不備フォローフォーム">フォーム</a>
+              <a class="attachment" href="?form=facility-issue#temporary-form">フォーム</a>
               <a class="attachment" href="#manual">マニュアル</a>
               <a class="attachment" href="#" data-placeholder="不備写真 保管先">画像</a>
               <a class="attachment" href="#" data-placeholder="業者見積PDF">PDF</a>
@@ -1074,7 +1086,7 @@
             <h3 class="board-title">SNS素材提出</h3>
             <p class="board-summary">広報投稿用の写真素材提出。完了済みの過去依頼として、アーカイブ切替時だけ表示します。</p>
             <div class="attachment-row">
-              <a class="attachment" href="#" data-placeholder="SNS素材提出フォーム">フォーム</a>
+              <a class="attachment" href="?form=sns#temporary-form">フォーム</a>
               <a class="attachment" href="#manual">マニュアル</a>
               <a class="attachment" href="#" data-placeholder="SNS素材 保管先">保管先</a>
             </div>
@@ -1161,6 +1173,28 @@
           <li><a href="#" data-placeholder="デバイス台帳更新ルール"><strong>デバイス台帳更新ルール</strong><span>未設定</span></a></li>
         </ul>
       </aside>
+    </section>
+
+    <section class="section" id="temporary-form">
+      <div class="section-head">
+        <h2>仮フォームURL</h2>
+        <p>本番のGoogleフォームができるまで、関係者に動線を確認してもらうための仮入口です。回答保存は行わず、運用イメージ確認用として使います。</p>
+      </div>
+      <div class="panel mock-form-box">
+        <h3 id="mockFormTitle">仮フォームを選択してください</h3>
+        <p id="mockFormDescription" style="margin: 0; color: var(--muted);">各カードの「仮フォーム入口」から開くと、ここにフォーム名と用途が表示されます。</p>
+        <div class="form-spec">
+          <div class="field"><strong>施設名</strong><span>プルダウン想定: 対象施設一覧から選択</span></div>
+          <div class="field"><strong>担当者名</strong><span>短文入力</span></div>
+          <div class="field"><strong>依頼・提出内容</strong><span>フォーム種別ごとに必要項目を設定</span></div>
+          <div class="field"><strong>資料・画像</strong><span>DirectCloudまたは共有領域へ保存し、ファイル名またはURLを記入</span></div>
+          <div class="field"><strong>確認事項</strong><span>提出前チェック、個人情報確認、保管先確認など</span></div>
+        </div>
+        <div class="mock-form-actions">
+          <button class="button primary" type="button" id="copyMockUrl">この仮URLをコピー</button>
+          <a class="button secondary" href="#guide">依頼文テンプレートへ</a>
+        </div>
+      </div>
     </section>
 
     <section class="section" id="forms">
@@ -1465,6 +1499,21 @@
     const templateStorage = document.querySelector("#templateStorage");
     const templateOutput = document.querySelector("#templateOutput");
     const copyTemplate = document.querySelector("#copyTemplate");
+    const mockForms = {
+      training: ["教育・研修提出フォーム", "研修受講状況、教育資料、施設への確認依頼を受け付ける仮フォームです。"],
+      "recruit-consult": ["採用依頼・相談フォーム", "求人内容、採用ページ、採用媒体、施設からの採用相談を受け付ける仮フォームです。"],
+      hp: ["HP掲載依頼フォーム", "活動報告、イベント、採用、お知らせ、地域交流などの掲載依頼を受け付ける仮フォームです。"],
+      sns: ["SNS素材提出フォーム", "InstagramやGoogleビジネスプロフィール投稿用の写真、文章、確認事項を受け付ける仮フォームです。"],
+      "facility-issue": ["施設不備フォローフォーム", "設備不備、修繕、備品、業者対応などの相談と資料提出を受け付ける仮フォームです。"],
+      vendor: ["業者一括照会フォーム", "複数施設にまたがる業者確認、見積、契約、修繕対応の照会を受け付ける仮フォームです。"],
+      device: ["デバイス管理フォーム", "法人貸与デバイスの台帳更新、所在確認、故障、返却、追加申請を受け付ける仮フォームです。"],
+      kpi: ["売上・KPI報告フォーム", "通所の売上、稼働率、KPI、施設状況など月次報告を受け付ける仮フォームです。"],
+      government: ["役所提出資料フォーム", "行政提出資料、照会回答、各施設からの必要資料を取りまとめる仮フォームです。"],
+      announcement: ["アナウンス確認フォーム", "制度変更、提出期限、施設向け周知の確認状況を受け付ける仮フォームです。"]
+    };
+    const mockFormTitle = document.querySelector("#mockFormTitle");
+    const mockFormDescription = document.querySelector("#mockFormDescription");
+    const copyMockUrl = document.querySelector("#copyMockUrl");
 
     function updateTemplate() {
       if (!templateOutput) return;
@@ -1492,7 +1541,28 @@
       });
     }
 
+    function updateMockForm() {
+      const params = new URLSearchParams(window.location.search);
+      const formKey = params.get("form");
+      const selected = mockForms[formKey];
+      if (!mockFormTitle || !mockFormDescription || !selected) return;
+      mockFormTitle.textContent = selected[0];
+      mockFormDescription.textContent = selected[1];
+    }
+
+    if (copyMockUrl) {
+      copyMockUrl.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          showToast("仮フォームURLをコピーしました。");
+        } catch (error) {
+          showToast("コピーできない場合は、ブラウザのURL欄からコピーしてください。");
+        }
+      });
+    }
+
     updateTemplate();
+    updateMockForm();
     enhanceFacilityTags();
     updateBoard();
   </script>
