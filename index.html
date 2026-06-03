@@ -785,6 +785,7 @@
         <a href="#business">対象事業</a>
         <a href="#guide">使い方</a>
         <a href="#rules">運用ルール</a>
+        <a href="#disaster">災害対応</a>
         <a href="#deadlines">締切</a>
         <a href="#board">掲示板</a>
         <a href="#status">提出状況</a>
@@ -1023,6 +1024,7 @@
             <button class="filter-button" type="button" data-board-filter="マーケ">マーケ</button>
             <button class="filter-button" type="button" data-board-filter="介保指導">介保指導</button>
             <button class="filter-button" type="button" data-board-filter="困りごと">困りごと</button>
+            <button class="filter-button" type="button" data-board-filter="災害対応">災害対応</button>
           </div>
           <label class="toggle-chip"><input id="showArchived" type="checkbox"> 完了・アーカイブも表示</label>
         </div>
@@ -1077,6 +1079,18 @@
               <a class="attachment" href="#manual">マニュアル</a>
               <a class="attachment" href="#" data-placeholder="不備写真 保管先">画像</a>
               <a class="attachment" href="#" data-placeholder="業者見積PDF">PDF</a>
+            </div>
+          </article>
+          <article class="board-item" data-category="災害対応" data-facility="中野" data-status="受付中" data-due="2026-06-12" data-archived="false" data-search="災害対応 台風 備品確認 中野 通所 佐藤 2026-06-12 ヘルメット 手袋 防災用品 使い方 マニュアル">
+            <div class="board-meta">
+              <span>災害対応</span><span>通所</span><span>中野</span><span>担当: 佐藤</span><span>期限: 2026/06/12</span><span class="status open">受付中</span>
+            </div>
+            <h3 class="board-title">災害対応備品・職員装備確認</h3>
+            <p class="board-summary">台風・大雨対応に備え、防災備品の有無、保管場所、使い方、職員用ヘルメット・手袋の準備状況を確認します。</p>
+            <div class="attachment-row">
+              <a class="attachment" href="?form=disaster-supplies#temporary-form">フォーム</a>
+              <a class="attachment" href="#disaster">マニュアル</a>
+              <a class="attachment" href="#" data-placeholder="災害対応備品台帳">備品台帳</a>
             </div>
           </article>
           <article class="board-item" data-category="マーケ" data-facility="池尻" data-status="完了" data-due="2026-05-24" data-archived="true" data-search="マーケ SNS素材提出 池尻 通所 完了 アーカイブ 写真 広報">
@@ -1171,6 +1185,7 @@
           <li><a href="#" data-placeholder="SNS・HP運用ルール"><strong>SNS・HP運用ルール</strong><span>未設定</span></a></li>
           <li><a href="#" data-placeholder="役所提出資料ルール"><strong>役所提出資料ルール</strong><span>未設定</span></a></li>
           <li><a href="#" data-placeholder="デバイス台帳更新ルール"><strong>デバイス台帳更新ルール</strong><span>未設定</span></a></li>
+          <li><a href="#disaster"><strong>災害時対応マニュアル</strong><span>確認する</span></a></li>
         </ul>
       </aside>
     </section>
@@ -1296,6 +1311,88 @@
               <textarea class="template-output" id="templateOutput" readonly></textarea>
             </label>
             <button class="button primary" id="copyTemplate" type="button">案内文をコピー</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="disaster">
+      <div class="section-head">
+        <h2>災害時対応マニュアル</h2>
+        <p>台風、大雨、地震などの発生時に、各施設が現場で判断・対応できる状態を作るための確認項目です。備品の有無だけでなく、保管場所、使用方法、職員装備、営業推進室の支援範囲まで整理します。</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3><span class="mark blue">備</span>災害備品の確認</h3>
+          <p>懐中電灯、電池、ラジオ、モバイルバッテリー、簡易トイレ、飲料水、保存食、ブルーシート、土のう、養生テープ、救急用品などを施設ごとに台帳化します。数量、使用期限、保管場所、管理責任者を必ず記録します。</p>
+        </article>
+        <article class="card">
+          <h3><span class="mark teal">使</span>使い方の落とし込み</h3>
+          <p>物品があるだけでは不十分です。発電機、止水板、土のう、無線機、非常用電源、簡易トイレなどは、誰が、どの場面で、どの手順で使うかを写真付き手順にし、年1回以上は実地確認します。</p>
+        </article>
+        <article class="card">
+          <h3><span class="mark yellow">装</span>職員装備の準備</h3>
+          <p>実際に対応する職員用のヘルメット、軍手・防水手袋、レインウェア、長靴、ライト、笛、反射ベストを確認します。夜間・屋外・浸水リスクのある対応を想定し、職員数に対して不足がないかを見ます。</p>
+        </article>
+        <article class="card">
+          <h3><span class="mark red">初</span>初動判断の基準</h3>
+          <p>警報発令、交通機関停止、送迎可否、利用者帰宅判断、職員参集、休止判断、行政連絡の基準を明文化します。施設判断で迷う箇所は、営業推進室や本部へ相談するタイミングを決めます。</p>
+        </article>
+        <article class="card">
+          <h3><span class="mark green">記</span>記録と報告</h3>
+          <p>発生時刻、判断内容、利用者・職員の状況、建物被害、備品使用、行政・家族連絡、写真を残します。対応後はポータルの掲示板やフォームに集約し、次回の改善に使える状態にします。</p>
+        </article>
+        <article class="card">
+          <h3><span class="mark violet">営</span>営業推進室の支援</h3>
+          <p>営業推進室は各施設の備品台帳、未整備項目、対応記録を集約します。共通マニュアル、確認フォーム、提出期限、未回答リマインド、施設間の好事例共有、必要物品の一括照会を支援します。</p>
+        </article>
+      </div>
+
+      <div class="two-col" style="margin-top: 18px;">
+        <div class="panel">
+          <h3>現場職員が確認すること</h3>
+          <div class="steps">
+            <div class="step">
+              <strong>備品があるか</strong>
+              <p>必要物品、数量、使用期限、破損、電池切れ、保管場所を確認します。</p>
+            </div>
+            <div class="step">
+              <strong>使える状態か</strong>
+              <p>実際に取り出せるか、担当者以外でも使い方が分かるか、手順書が近くにあるかを確認します。</p>
+            </div>
+            <div class="step">
+              <strong>職員装備が足りるか</strong>
+              <p>ヘルメット、手袋、長靴、ライト、レインウェアなど、対応職員の安全確保に必要なものを確認します。</p>
+            </div>
+            <div class="step">
+              <strong>判断と連絡先が分かるか</strong>
+              <p>休止、送迎中止、行政連絡、家族連絡、営業推進室への報告ルートを確認します。</p>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>営業推進室がサポートすること</h3>
+          <div class="steps">
+            <div class="step">
+              <strong>確認フォームを作る</strong>
+              <p>備品、使い方、職員装備、未整備項目を施設別に回答できるフォームを用意します。</p>
+            </div>
+            <div class="step">
+              <strong>提出状況を見える化する</strong>
+              <p>未回答施設、不足物品、期限切れ備品、要フォロー項目をダッシュボードで管理します。</p>
+            </div>
+            <div class="step">
+              <strong>共通化できるものを整える</strong>
+              <p>台風時チェックリスト、備品台帳、写真付き手順書、LINE WORKS案内文、行政連絡テンプレートを整備します。</p>
+            </div>
+            <div class="step">
+              <strong>改善点を次回へ残す</strong>
+              <p>対応後の困りごと、判断に迷った点、不足物品を掲示板で検索できるように蓄積します。</p>
+            </div>
+          </div>
+          <div class="mock-form-actions">
+            <a class="button primary" href="?form=disaster-supplies#temporary-form">災害備品確認 仮フォーム</a>
+            <a class="button secondary" href="#board">災害対応タスクを見る</a>
           </div>
         </div>
       </div>
@@ -1509,7 +1606,8 @@
       device: ["デバイス管理フォーム", "法人貸与デバイスの台帳更新、所在確認、故障、返却、追加申請を受け付ける仮フォームです。"],
       kpi: ["売上・KPI報告フォーム", "通所の売上、稼働率、KPI、施設状況など月次報告を受け付ける仮フォームです。"],
       government: ["役所提出資料フォーム", "行政提出資料、照会回答、各施設からの必要資料を取りまとめる仮フォームです。"],
-      announcement: ["アナウンス確認フォーム", "制度変更、提出期限、施設向け周知の確認状況を受け付ける仮フォームです。"]
+      announcement: ["アナウンス確認フォーム", "制度変更、提出期限、施設向け周知の確認状況を受け付ける仮フォームです。"],
+      "disaster-supplies": ["災害備品確認フォーム", "台風・大雨・地震に備え、災害対応備品、使い方、職員装備、未整備項目を施設別に確認する仮フォームです。"]
     };
     const mockFormTitle = document.querySelector("#mockFormTitle");
     const mockFormDescription = document.querySelector("#mockFormDescription");
